@@ -1,11 +1,7 @@
 package com.digitalisierung
 
-import io.ktor.serialization.gson.*
-import io.ktor.server.application.*
-import io.ktor.server.auth.*
-import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.server.application.Application
+import io.ktor.server.application.install
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
@@ -15,8 +11,14 @@ fun Application.configureFrameworks() {
         slf4jLogger()
         modules(module {
             single<HelloService> {
-                HelloService {
-                    println(environment.log.info("Hello, World!"))
+                object : HelloService {
+                    override fun sayHello() {
+                        println(environment.log.info("Hello, World!"))
+                    }
+
+                    override fun saySomethingElse() {
+                        println(environment.log.info("Hello, WorldsSomethingElse!"))
+                    }
                 }
             }
         })

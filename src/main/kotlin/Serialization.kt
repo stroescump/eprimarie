@@ -1,23 +1,20 @@
 package com.digitalisierung
 
-import io.ktor.serialization.gson.*
-import io.ktor.server.application.*
-import io.ktor.server.auth.*
-import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
-import org.koin.dsl.module
-import org.koin.ktor.plugin.Koin
-import org.koin.logger.slf4jLogger
+import io.ktor.serialization.kotlinx.json.json
+import io.ktor.server.application.Application
+import io.ktor.server.application.install
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.plugins.statuspages.StatusPages
+import io.ktor.server.response.respondText
+import kotlinx.serialization.json.Json
 
 fun Application.configureSerialization() {
     install(ContentNegotiation) {
-        gson {
-            }
-    }
-    routing {
-        get("/json/gson") {
-                call.respond(mapOf("hello" to "world"))
-            }
+        json(Json {
+            ignoreUnknownKeys = false
+            prettyPrint = true
+            isLenient = false
+            explicitNulls = false
+        })
     }
 }

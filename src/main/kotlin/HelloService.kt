@@ -1,5 +1,6 @@
 package com.digitalisierung
 
-fun interface HelloService {
+interface HelloService {
     fun sayHello()
+    fun saySomethingElse()
 }

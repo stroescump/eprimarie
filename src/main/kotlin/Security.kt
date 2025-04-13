@@ -1,14 +1,15 @@
 package com.digitalisierung
 
-import io.ktor.serialization.gson.*
-import io.ktor.server.application.*
-import io.ktor.server.auth.*
-import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
-import org.koin.dsl.module
-import org.koin.ktor.plugin.Koin
-import org.koin.logger.slf4jLogger
+import io.ktor.server.application.Application
+import io.ktor.server.auth.UserIdPrincipal
+import io.ktor.server.auth.authenticate
+import io.ktor.server.auth.authentication
+import io.ktor.server.auth.basic
+import io.ktor.server.auth.form
+import io.ktor.server.auth.principal
+import io.ktor.server.response.respondText
+import io.ktor.server.routing.get
+import io.ktor.server.routing.routing
 
 fun Application.configureSecurity() {
     authentication {
@@ -22,7 +23,7 @@ fun Application.configureSecurity() {
                 }
             }
         }
-    
+
         form(name = "myauth2") {
             userParamName = "user"
             passwordParamName = "password"
